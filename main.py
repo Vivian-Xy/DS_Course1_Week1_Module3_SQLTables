@@ -12,7 +12,7 @@ SELECT e.firstName, e.lastName, e.jobTitle
 FROM employees e
 JOIN offices o
 ON e.officeCode = o.officeCode
-WHERE o.city = 'Boston';
+WHERE o.city = 'Boston'
 """, conn)
 
 # -------------------------
@@ -133,11 +133,16 @@ WITH low_products AS (
 SELECT DISTINCT e.employeeNumber, e.firstName, e.lastName,
        o.city, o.officeCode
 FROM employees e
-JOIN customers c ON e.employeeNumber = c.salesRepEmployeeNumber
-JOIN orders o2 ON c.customerNumber = o2.customerNumber
-JOIN orderdetails od ON o2.orderNumber = od.orderNumber
-JOIN low_products lp ON od.productCode = lp.productCode
-JOIN offices o ON e.officeCode = o.officeCode;
+JOIN customers c
+    ON e.employeeNumber = c.salesRepEmployeeNumber
+JOIN offices o
+    ON e.officeCode = o.officeCode
+JOIN orders ord
+    ON c.customerNumber = ord.customerNumber
+JOIN orderdetails od
+    ON ord.orderNumber = od.orderNumber
+JOIN low_products lp
+    ON od.productCode = lp.productCode
 """, conn)
 
 # Close connection
