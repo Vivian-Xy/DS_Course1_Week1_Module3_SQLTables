@@ -13,6 +13,7 @@ FROM employees e
 JOIN offices o
 ON e.officeCode = o.officeCode
 WHERE o.city = 'Boston'
+ORDER BY e.firstName, e.lastName;
 """, conn)
 
 # -------------------------
@@ -122,7 +123,7 @@ GROUP BY o.officeCode, o.city;
 # -------------------------
 df_under_20 = pd.read_sql("""
 SELECT DISTINCT e.employeeNumber, e.firstName, e.lastName,
-       o.city, o.officeCode
+    o.city, o.officeCode
 FROM employees e
 JOIN customers c
     ON e.employeeNumber = c.salesRepEmployeeNumber
